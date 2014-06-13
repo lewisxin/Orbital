@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <title>Welcome to UltimateRoute!</title>
 
   <!-- Bootstrap -->
@@ -18,7 +19,7 @@
       <![endif]-->
     </head>
     <body>
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,10 +55,38 @@
             </div>
           </div>
         </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-5 col-md-4 sidebar" style="background-color: #eee;">
+              <ul class="nav nav-sidebar">
+                <li class="active"><a href="Overview">Overview</a></li>
+                <li><a href="#Reports">Reports</a></li>
+                <li><a href="#Analytics">Analytics</a></li>
+                <li><a href="#Export">Export</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-7 col-md-8 main">
+              <div id="map_canvas"></div>
+            </div>
+          </div>
+        </div>
 
 
-
-
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        <script>
+        function initialize() {
+          var map_canvas = document.getElementById('map_canvas');
+          var map_options = {
+            center: new google.maps.LatLng(1.3375236080944714,103.85328770585943),
+            zoom: 11,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+          var map = new google.maps.Map(map_canvas, map_options)
+          google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});
+          infowindow.open(map,marker);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->

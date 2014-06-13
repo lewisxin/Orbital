@@ -1,6 +1,10 @@
 
 /* For the logo */
 .logo {
-    height: 80px;
+	height: 80px;
 }
 
+#map_canvas {
+	width: 825px;
+	height: 800px;
+}
