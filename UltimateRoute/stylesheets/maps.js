@@ -6,21 +6,37 @@
  function initialize() {
  	directionsDisplay = new google.maps.DirectionsRenderer();
  	geocoder = new google.maps.Geocoder();
-
+ 	// Establish map object
  	var mapOptions = {
  		zoom:11
  	}
  	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+ 	directionsDisplay.setMap(map);
+ 	
+ 	// autocomplete for address
+ 	var defaultBounds = new google.maps.LatLngBounds(
+ 		new google.maps.LatLng(-33.8902, 151.1759),
+ 		new google.maps.LatLng(-33.8474, 151.2631));
+ 	var options = {
+ 		bounds:defaultBounds
+ 	};
 
+ 	var input = document.getElementById("address");
+ 	var autocomplete = new google.maps.places.Autocomplete(input, options);
+ 	
+ 	// Use geolocation to: 
+ 	// 1) set centre of the map to user's current location
+ 	// 2) make autocomplete function biases to user's current location
  	if(navigator.geolocation) {
  		navigator.geolocation.getCurrentPosition(function(position) {
- 			var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+ 			var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
  			var infowindow = new google.maps.InfoWindow({
  				map: map,
- 				position: pos,
+ 				position: geolocation,
  				content: "Thanks for using UltimateRoute, let's get started"
  			});
- 			map.setCenter(pos);
+ 			autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,geolocation));
+ 			map.setCenter(geolocation);
  		}, function() {
  			handleNoGeolocation(true);
  		});
@@ -29,7 +45,6 @@
  		handleNoGeolocation(false);
  	}
 
- 	directionsDisplay.setMap(map);
  }
 
  function handleNoGeolocation(errorFlag) {
@@ -49,7 +64,7 @@
  	map.setCenter(options.position);
  }
 
- function calcRoute() {
+ /*function calcRoute() {
  	var start = document.getElementById('start').value;
  	var end = document.getElementById('end').value;
  	var request = {
@@ -68,6 +83,43 @@
  			});
  		}
  	});
- }
+}*/
+function calcRoute() {
+	var start = document.getElementById('start').value;
+	var end = document.getElementById('end').value;
+	var waypts = [];
+	var checkboxArray = document.getElementById('waypoints');
+	for (var i = 0; i < checkboxArray.length; i++) {
+		if (checkboxArray.options[i].selected == true) {
+			waypts.push({
+				location:checkboxArray[i].value,
+				stopover:true});
+		}
+	}
 
- google.maps.event.addDomListener(window, 'load', initialize);
+	var request = {
+		origin: start,
+		destination: end,
+		waypoints: waypts,
+		optimizeWaypoints: true,
+		travelMode: google.maps.TravelMode.DRIVING
+	};
+	directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+			var route = response.routes[0];
+			var summaryPanel = document.getElementById('directions_panel');
+			summaryPanel.innerHTML = '';
+      // For each route, display summary information.
+      for (var i = 0; i < route.legs.length; i++) {
+      	var routeSegment = i + 1;
+      	summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
+      	summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+      	summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+      	summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+      }
+  }
+});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);

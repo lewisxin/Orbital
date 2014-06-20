@@ -8,3 +8,16 @@
 	width: 825px;
 	height: 800px;
 }
+
+#address{
+	width: 330px;
+}
+
+#start,#end,#waypoints{
+	width: 300px;
+}
+
+#directions_panel{
+	width:300px;
+	background-color:#DAEDE2;
+}
