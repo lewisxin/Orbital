@@ -66,15 +66,16 @@
                 <input id="address" type="textbox" placeholder="Where do you want to go?">
                 <input type="button" value="Add" onclick="addAddr()">
               </div>
-              <div id="get_destins">
+              <div id="get_destins" style="display:none;">
                 <!--label for="start">Start:</label>
                 <input id="start" type="textbox" placeholder="Starting point" required autofocus><br>
                 <label for="end">End:</label>
                 <input id="end" type="textbox" placeholder="Destination" required-->
-                <select id="start"></select>
-                <select multiple id="waypoints"></select>
-                <select id="end"></select>
-                <input type="button" value="submit" onclick="calcRoute()">
+                <label><select id="start"></select><b>-> Start</b></label><br>
+                <label><select multiple id="waypoints"></select><b>-> Stops</b></label><br>
+                <label><select id="end"></select><b>-> End</b></label><br>
+                <input type="button" value="Get direction" onclick="calcRoute()">
+                <p>Total Distance: <span id="total"></span></p>
               </div>
               <div id="directions_panel"></div>
             </div>

@@ -1,17 +1,21 @@
- var directionsDisplay;  
- var directionsService = new google.maps.DirectionsService();
- var map;
- var geocoder;
+var rendererOptions = {
+	draggable: true,
+	preserveViewport: false
+};
+var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+var directionsService = new google.maps.DirectionsService();
+var map;
+var geocoder;
 
- function initialize() {
- 	directionsDisplay = new google.maps.DirectionsRenderer();
- 	geocoder = new google.maps.Geocoder();
+function initialize() {
+	geocoder = new google.maps.Geocoder();
  	// Establish map object
  	var mapOptions = {
  		zoom:11
  	}
  	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
  	directionsDisplay.setMap(map);
+ 	directionsDisplay.setPanel(document.getElementById('directions_panel'));
  	
  	// autocomplete for address
  	var defaultBounds = new google.maps.LatLngBounds(
@@ -24,9 +28,7 @@
  	var input = document.getElementById("address");
  	var autocomplete = new google.maps.places.Autocomplete(input, options);
  	
- 	// Use geolocation to: 
- 	// 1) set centre of the map to user's current location
- 	// 2) make autocomplete function biases to user's current location
+
  	if(navigator.geolocation) {
  		navigator.geolocation.getCurrentPosition(function(position) {
  			var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -40,10 +42,12 @@
  		}, function() {
  			handleNoGeolocation(true);
  		});
- 	} 
- 	else {
+ 	} else {
  		handleNoGeolocation(false);
  	}
+ 	google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+ 		computeTotalDistance(directionsDisplay.getDirections());
+ 	});
 
  }
 
@@ -107,19 +111,40 @@ function calcRoute() {
 	directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
+		}
+	});
+
+	/*directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
 			var route = response.routes[0];
 			var summaryPanel = document.getElementById('directions_panel');
 			summaryPanel.innerHTML = '';
       // For each route, display summary information.
+      var total_dist=0;
       for (var i = 0; i < route.legs.length; i++) {
       	var routeSegment = i + 1;
       	summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
-      	summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-      	summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-      	summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+      	summaryPanel.innerHTML += '<i><u>From:</u></i>' + route.legs[i].start_address + '<br>';
+      	summaryPanel.innerHTML += '<i><u>To:</u></i>' + route.legs[i].end_address + '<br>';
+      	summaryPanel.innerHTML += '<i><u>Distance:</u></i>'+ route.legs[i].distance.text + '<br><br>';
+      	console.log(route.legs[i].len);
+      	total_dist+= route.legs[i].distance;
       }
+      console.log(route.distance);
+      summaryPanel.innerHTML += '<b>Distance: </b>' + total_dist.text;
   }
-});
+});*/
 }
+function computeTotalDistance(result) {
+	var total = 0;
+	var myroute = result.routes[0];
+	for (var i = 0; i < myroute.legs.length; i++) {
+		total += myroute.legs[i].distance.value;
+	}
+	total = total / 1000.0;
+	document.getElementById('total').innerHTML = total + ' km';
+}
+
 
 google.maps.event.addDomListener(window, 'load', initialize);

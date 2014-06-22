@@ -283,7 +283,7 @@ input,
 button,
 select,
 textarea {
-  font-family: inherit;
+  font-family: serif;
   font-size: inherit;
   line-height: inherit;
 }
