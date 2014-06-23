@@ -10,7 +10,7 @@ class MainPage(webapp2.RequestHandler):
     """ Handler for the front page."""
 
     def get(self):
-        template = jinja_environment.get_template('frontuser.html')
+        template = jinja_environment.get_template('front.html')
         self.response.out.write(template.render())
 
 

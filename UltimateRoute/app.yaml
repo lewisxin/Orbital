@@ -22,8 +22,8 @@ handlers:
 
 # All other pages require login
 - url: /.*
-  script: UltimateRoute.app
- # login: required
+  script: ultimateroute.app
+  login: required
 
 libraries:
 - name: jinja2
