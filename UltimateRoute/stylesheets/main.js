@@ -1,4 +1,3 @@
-
 function addAddr(){
 	if($('#get_destins').is(':hidden')){
 		$('#get_destins').slideDown(400);
@@ -16,16 +15,9 @@ function addAddr(){
 	})
 	.trigger('change');
 }
-//$(document).ready(function(){
 
-
-	/*$("#getAddr").submit(function(event){
-		event.preventDefault();
-		var addr = $("#address").val();
-		if(addr != ""){
-			addAddr(addr);
-		}
-	});*/
-//})
+function printButton() {
+    window.print();
+}
 
 
