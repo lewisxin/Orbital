@@ -25,7 +25,7 @@ class MainPageUser(webapp2.RequestHandler):
         user = users.get_current_user()
         if user:  # signed in already
             template_values = {
-                'user_mail': users.get_current_user().email(),
+                'username': users.get_current_user().email(),
                 'logout': users.create_logout_url(self.request.host_url),
             }
             template = jinja_environment.get_template('frontuser.html')

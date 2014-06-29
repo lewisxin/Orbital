@@ -8,6 +8,7 @@
   <script src="../stylesheets/maps.js"></script>
   <script src="../stylesheets/main.js"></script>
   <link rel="shortcut icon" href="../image/icon.png">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:700|Open+Sans' rel='stylesheet' type='text/css'>
 
   <title>Welcome to UltimateRoute!</title>
 
@@ -64,20 +65,26 @@
           <div class="row">
             <div class="col-sm-5 col-md-4 sidebar" style="background-color: #eee;">
               <div>
-                <p>Hello<span><b> {{ user_mail }} </b><a href="{{ logout }}">Logout</a></span></p>
+                <p>Hello<span><b> {{ username }} </b><a href="{{ logout }}">Logout</a></span></p>
               </div>
-              <div id="getAddr">
-                <input id="address" type="textbox" placeholder="Where do you want to go?">
-                <input type="button" value="Add" onclick="addAddr()">
+              <div id="get_addr">
+                <input id="address" type="text" placeholder="Where do you want to go?">
+                <input class="btn_reset" type="button" value="X" onclick="resetAddr()">
+                <input class="btn_add" type="button" value="Add" onclick="addAddr()">
               </div>
               <div id="get_destins" style="display:none;">
-                <label><select id="start"></select><b>-> Start</b></label><br>
-                <label><select multiple id="waypoints"></select><b>-> Stops</b></label><br>
-                <label><select id="end"></select><b>-> End</b></label><br>
-                <input type="button" value="Get direction" onclick="calcRoute()">
-                <p>Total Distance: <span id="total"></span></p>
+                <div class="labels"><label for="start">Please choose a starting point for your trip</label></div>
+                <select id="start"></select>
+                <div class="labels"><label for="waypoints">Select middle points (Double click on address to delete)</label></div>
+                <select multiple id="waypoints"></select>
+                <div class="labels"><label for="end">Please choose an ending point for your trip</label></div>
+                <select id="end"></select>
+                <input class="btn_get" type="button" value="Get direction" onclick="calcRoute()">
               </div>
-              <div id="directions_panel"></div>
+              <div id="panel_container" style="display:none;">
+                <p>Total Distance: <span id="total"></span></p>
+                <div id="directions_panel"></div>
+              </div>
             </div>
             <div class="col-sm-7 col-md-8 main">
              <div id="map_canvas"></div>

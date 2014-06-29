@@ -3651,7 +3651,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-radius: 1px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1060px) {
   .navbar-header {
     float: left;
   }
@@ -3668,7 +3668,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 1060px) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3779,7 +3779,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1060px) {
   .navbar-toggle {
     display: none;
   }

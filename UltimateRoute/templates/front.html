@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="../stylesheets/pop-up/css/style.css" />
 
+<!--facebook login-->
+<script src="../stylesheets/facebooklogin.js"></script>
 
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -77,10 +79,18 @@
                             <span class="icon"><i class="fa fa-google-plus"></i></span>
                             <span class="icon_title">Connect with Google</span>
                           </a>
-                          <a href="#" class="social_box fb">
+                          <!--a href="#" class="social_box fb">
                             <span class="icon"><i class="fa fa-facebook"></i></span>
                             <span class="icon_title">Connect with Facebook</span>
-                          </a>
+                          </a-->
+                          <div class="centeredText">
+                            <span>Or use Facebook Account</span>
+                          </div>
+                          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                        </fb:login-button>
+
+                        <div id="status">
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -90,7 +100,7 @@
 
             <div class="mastfoot">
               <div class="inner">
-                <p>&copyUltimateRoute. Created by <a href="#Contact">Patrick&ampLewis</a>.</p>
+                <p>&copyUltimateRoute. Created by <a href="#Contact">Team Godzilla</a>.</p>
               </div>
             </div>
 

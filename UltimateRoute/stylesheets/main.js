@@ -1,12 +1,10 @@
 function addAddr(){
 	if($('#get_destins').is(':hidden')){
 		$('#get_destins').slideDown(400);
-	}else{
-		$('get_destins').slideUp(400);
 	}
 	var address = document.getElementById("address").value;
 	$("#start").append('<option' + ' value="' +address+ '">' +address+'</option>');
-	$("#waypoints").append('<option' + ' value="' +address+ '" selected="selected">' +address+'</option>');
+	$("#waypoints").append('<option' + ' value="' +address+ '">' +address+'</option>');
 	$("#end").append('<option' + ' value="' +address+ '" selected="selected">' +address+'</option>');
 	$("select").dblclick(function () {
 		var selected = $('select[id=waypoints]').val();
@@ -17,7 +15,11 @@ function addAddr(){
 }
 
 function printButton() {
-    window.print();
+	window.print();
+}
+
+function resetAddr(){
+	$('#get_addr input[type="text"]').val('');
 }
 
 

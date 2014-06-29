@@ -1,5 +1,4 @@
 var rendererOptions = {
-	draggable: true,
 	preserveViewport: false
 };
 var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
@@ -113,7 +112,11 @@ function calcRoute() {
 			directionsDisplay.setDirections(response);
 		}
 	});
-
+	if($('#panel_container').is(':hidden')){
+		$('#panel_container').slideDown(400);
+	}else{
+		$('#panel_container').slideUp(400);
+	}
 	/*directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);

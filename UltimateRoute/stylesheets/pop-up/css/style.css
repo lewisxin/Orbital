@@ -54,7 +54,7 @@ a.btn_red {color: #FFF;}
 .social_login .icon_title {display:block; padding:5px 0; float:left; font-weight: bold; font-size: 16px; color:#777; font-family: 'Source Sans Pro', sans-serif;}
 .social_login .social_box:hover {background: #E4E4E2;}
 
-.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase;}
+.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase; color:#505050;}
 
 .action_btns {clear:both; overflow: hidden;}
 .action_btns a {display: block;}
