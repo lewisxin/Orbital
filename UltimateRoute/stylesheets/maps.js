@@ -6,6 +6,7 @@ var directionsService = new google.maps.DirectionsService();
 var map;
 var geocoder;
 var markers = [];
+var infowindow;
 
 function initialize() {
 	geocoder = new google.maps.Geocoder();
@@ -32,7 +33,7 @@ function initialize() {
  	if(navigator.geolocation) {
  		navigator.geolocation.getCurrentPosition(function(position) {
  			var geolocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
- 			var infowindow = new google.maps.InfoWindow({
+ 			infowindow = new google.maps.InfoWindow({
  				map: map,
  				position: geolocation,
  				content: "Thanks for using UltimateRoute, let's get started"
@@ -64,7 +65,7 @@ function initialize() {
  		content: content
  	};
 
- 	var infowindow = new google.maps.InfoWindow(options);
+ 	infowindow = new google.maps.InfoWindow(options);
  	map.setCenter(options.position);
  }
 
@@ -90,6 +91,14 @@ function initialize() {
 }*/
 function calcRoute() {
 	deleteMarkers();
+	closeInfoWindow();
+	if($('#get_destins').is(':hidden')){
+		$('#get_destins').slideDown(400);
+		$('#slide_btn').val('^')
+	}else{
+		$('#get_destins').slideUp(400);
+		$('#slide_btn').val('v')
+	}
 	var start = document.getElementById('start').value;
 	var end = document.getElementById('end').value;
 	var waypts = [];
@@ -111,14 +120,25 @@ function calcRoute() {
 	};
 	directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
+			var route = response.routes[0];
+			var summaryPanel = document.getElementById('sum_panel');
+			summaryPanel.innerHTML = '' + '<b>(Start) <u style="color:#CC4452;">1</u> ' + route.legs[0].start_address + '</b>';
+			for (var i = 0; i < route.legs.length; i++) {
+				var routeSegment = i + 2;
+				summaryPanel.innerHTML += ' --> '+ '<b><u style="color:#CC4452;">' + routeSegment + '</u> ' + route.legs[i].end_address + '</b>';
+			}
+			summaryPanel.innerHTML += '<b> (End)</b> '
 			directionsDisplay.setDirections(response);
 		}
+		else{
+			alert("These destinations cannot be reached by driving! Please reselect your addresses");
+		}
 	});
+
 	if($('#panel_container').is(':hidden')){
 		$('#panel_container').slideDown(400);
-	}else{
-		$('#panel_container').slideUp(400);
 	}
+	
 	/*directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
@@ -152,35 +172,41 @@ function computeTotalDistance(result) {
 }
 
 function codeAddress() {
-  var address = document.getElementById('address').value;
-  geocoder.geocode( { 'address': address}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-      markers.push(marker)
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
+	closeInfoWindow();
+	var address = document.getElementById('address').value;
+	geocoder.geocode( { 'address': address}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			map.setCenter(results[0].geometry.location);
+			var marker = new google.maps.Marker({
+				map: map,
+				position: results[0].geometry.location
+			});
+			markers.push(marker)
+		} else {
+			alert('Geocode was not successful for the following reason: ' + status);
+		}
+	});
 }
 
 function setAllMap(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(map);
+	}
 }
 
 function clearMarkers() {
-  setAllMap(null);
+	setAllMap(null);
 }
 
 function deleteMarkers() {
-  clearMarkers();
-  markers = [];
+	clearMarkers();
+	markers = [];
 }
 
+function closeInfoWindow(){
+	if (infowindow) {
+		infowindow.close();
+	}
+}
 
 google.maps.event.addDomListener(window, 'load', initialize);

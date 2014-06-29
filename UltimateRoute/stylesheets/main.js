@@ -1,6 +1,7 @@
 function addAddr(){
 	if($('#get_destins').is(':hidden')){
 		$('#get_destins').slideDown(400);
+		$('#slide_btn').val('^');
 	}
 	var address = document.getElementById("address").value;
 	$("#start").append('<option' + ' value="' +address+ '">' +address+'</option>');
@@ -22,4 +23,12 @@ function resetAddr(){
 	$('#get_addr input[type="textbox"]').val('');
 }
 
-
+function slidePanelDown(){
+	if($('#get_destins').is(':hidden')){
+		$('#get_destins').slideDown(400);
+		$('#slide_btn').val('^');
+	}else{
+		$('#get_destins').slideUp(400);
+		$('#slide_btn').val('v')
+	}
+}
