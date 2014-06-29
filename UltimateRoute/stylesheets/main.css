@@ -10,9 +10,8 @@
 }
 
 #address{
-	width: 80%;
+	width: 90%;
 	font-family: 'Open Sans', sans-serif;
-	margin-bottom: 20px
 }
 
 #getAddr,#start,#end,#waypoints{
@@ -29,7 +28,7 @@ label{
 	font-family: 'PT Sans', sans-serif;
 }
 
-.btn_add, .btn_get{
+.btn_find, .btn_add, .btn_get{
 	border-radius: 4px;
 	background-color: #CC4452;
 	cursor: pointer;
@@ -38,6 +37,16 @@ label{
 	font-family: 'PT Sans', sans-serif;
 	color: white;
 	position: center;
+}
+
+.btn_find, .btn_add{
+	margin-bottom: 20px;
+	margin-right: 5px;
+	margin-top: 2px;
+}
+
+.btn_find{
+	background-color: #2185C5;
 }
 
 .btn_reset{

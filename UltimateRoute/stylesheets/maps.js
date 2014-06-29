@@ -5,6 +5,7 @@ var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 var directionsService = new google.maps.DirectionsService();
 var map;
 var geocoder;
+var markers = [];
 
 function initialize() {
 	geocoder = new google.maps.Geocoder();
@@ -88,6 +89,7 @@ function initialize() {
  	});
 }*/
 function calcRoute() {
+	deleteMarkers();
 	var start = document.getElementById('start').value;
 	var end = document.getElementById('end').value;
 	var waypts = [];
@@ -147,6 +149,37 @@ function computeTotalDistance(result) {
 	}
 	total = total / 1000.0;
 	document.getElementById('total').innerHTML = total + ' km';
+}
+
+function codeAddress() {
+  var address = document.getElementById('address').value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+      markers.push(marker)
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setAllMap(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
 }
 
 

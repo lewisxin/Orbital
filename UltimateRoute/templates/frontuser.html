@@ -7,6 +7,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&language=en"></script>
   <script src="../stylesheets/maps.js"></script>
   <script src="../stylesheets/main.js"></script>
+
   <link rel="shortcut icon" href="../image/icon.png">
   <link href='http://fonts.googleapis.com/css?family=PT+Sans:700|Open+Sans' rel='stylesheet' type='text/css'>
 
@@ -25,6 +26,7 @@
       <![endif]-->
     </head>
     <body>
+      <script src="../stylesheets/facebook.js"></script>
       <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -45,7 +47,7 @@
                 <li><a href="#print"><button type="button" class="btn btn-default btn-lg" onclick="printButton()">
                   <span class="glyphicon glyphicon-print"></span>
                 </button></a></li>
-                <li><a href="#share"><button type="button" class="btn btn-default btn-lg">
+                <li><a href="#share"><button type="button" class="btn btn-default btn-lg" data-href="http://ultimate-route.appspot.com/ultimateroute">
                   <span class="glyphicon glyphicon-share"></span>
                 </button></a></li>
                 <li><a href="#private"><button type="button" class="btn btn-default btn-lg">
@@ -68,11 +70,12 @@
                 <p>Hello<span><b> {{ username }} </b><a href="{{ logout }}">Logout</a></span></p>
               </div>
               <div id="get_addr">
-                <input id="address" type="text" placeholder="Where do you want to go?">
+                <input id="address" type="textbox" placeholder="Where do you want to go?">
                 <input class="btn_reset" type="button" value="X" onclick="resetAddr()">
+                <input class="btn_find" type="button" value="Locate" onclick="codeAddress()">
                 <input class="btn_add" type="button" value="Add" onclick="addAddr()">
               </div>
-              <div id="get_destins" style="display:none;">
+              <div id="get_destins" style="display:none;">          
                 <div class="labels"><label for="start">Please choose a starting point for your trip</label></div>
                 <select id="start"></select>
                 <div class="labels"><label for="waypoints">Select middle points (Double click on address to delete)</label></div>

@@ -19,7 +19,7 @@ function printButton() {
 }
 
 function resetAddr(){
-	$('#get_addr input[type="text"]').val('');
+	$('#get_addr input[type="textbox"]').val('');
 }
 
 
