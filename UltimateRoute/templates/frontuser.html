@@ -7,6 +7,9 @@
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&language=en"></script>
   <script src="../stylesheets/maps.js"></script>
   <script src="../stylesheets/main.js"></script>
+  <script src="../stylesheets/support.js"></script>
+  <script src="../stylesheets/json2.js"></script>
+
 
   <link rel="shortcut icon" href="../image/icon.png">
   <link href='http://fonts.googleapis.com/css?family=PT+Sans:700|Open+Sans' rel='stylesheet' type='text/css'>
@@ -41,22 +44,19 @@
             </div>
             <div class="navbar-collapse collapse" style="height: 1px;">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#save"><button type="button" class="btn btn-default btn-lg">
+                <li><a href="#save"><button type="button" class="btn btn-default btn-lg" onclick="save_waypoints()" TITLE="Save Route">
                   <span class="glyphicon glyphicon-floppy-save"></span>
                 </button></a></li>
-                <li><a href="#print"><button type="button" class="btn btn-default btn-lg" onclick="printButton()">
+                <li><a href="#retrieve"><button type="button" class="btn btn-default btn-lg" onclick="load_waypoints()" TITLE="Retrieve Route">
+                  <span class="glyphicon glyphicon-floppy-open"></span>
+                </button></a></li>
+                <li><a href="#print"><button type="button" class="btn btn-default btn-lg" onclick="printButton()" TITLE="Print Route">
                   <span class="glyphicon glyphicon-print"></span>
                 </button></a></li>
-                <li><a href="#share"><button type="button" class="btn btn-default btn-lg" data-href="http://ultimate-route.appspot.com/ultimateroute">
+                <li><a href="#share"><button type="button" class="btn btn-default btn-lg" data-href="http://ultimate-route.appspot.com/ultimateroute" TITLE="Share Route">
                   <span class="glyphicon glyphicon-share"></span>
                 </button></a></li>
-                <li><a href="#private"><button type="button" class="btn btn-default btn-lg">
-                  <span class="glyphicon glyphicon-eye-close"></span>
-                </button></a></li>
-                <li><a href="#explore"><button type="button" class="btn btn-default btn-lg">
-                  <span class="glyphicon glyphicon-globe"></span>
-                </button></a></li>
-                <li><a href="#help"><button type="button" class="btn btn-default btn-lg">
+                <li><a href="#help"><button type="button" class="btn btn-default btn-lg" TITLE="Need Help">
                   <span class="glyphicon glyphicon-question-sign"></span>
                 </button></a></li>
               </ul>
